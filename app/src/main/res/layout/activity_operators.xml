@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OperatorsActivity">
+
+    <Button
+        android:id="@+id/btn_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="useCreate"
+        android:text="create操作符"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/btn_just"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="useJust"
+        android:text="just操作符"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_create"/>
+
+    <Button
+        android:id="@+id/btn_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="useFrom"
+        android:text="from操作符"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_just"/>
+
+    <Button
+        android:id="@+id/btn_repeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="useRepeat"
+        android:text="repeat操作符"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_from"/>
+
+    <Button
+        android:id="@+id/btn_defer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="useDefer"
+        android:text="defer操作符"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_repeat"/>
+
+    <Button
+        android:id="@+id/btn_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="useTimer"
+        android:text="timer操作符"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_defer"/>
+</android.support.constraint.ConstraintLayout>
