@@ -1,8 +1,7 @@
-package com.example.xuliangliang.rxjava;
+package com.example.rxjava;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -10,10 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import androidx.appcompat.app.AppCompatActivity;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -27,7 +29,8 @@ import io.reactivex.functions.Function;
  * @author xll
  * @date 2018/11/29
  */
-public class OperatorsActivity extends AppCompatActivity {
+@SuppressLint("CheckResult")
+public class CreateOperatorsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +38,11 @@ public class OperatorsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_operators);
     }
 
-    @SuppressLint("CheckResult")
+    /**
+     * 一个形式正确的有限Observable必须尝试调用观察者的onComplete()一次或者它的onError()一次，而且此后不再调用观察者的任何其他方法
+     * 使用create方法时，先检查观察者的isDisposed状态，以便在没有观察者的时候，让我们的Observable停止发射数据，防止运行昂贵的运算
+     */
     public void useCreate(View view) {
-        //一个形式正确的有限Observable必须尝试调用观察者的onComplete()一次或者它的onError()一次，而且此后不再调用观察者的任何其他方法
-        //使用create方法时，先检查观察者的isDisposed状态，以便在没有观察者的时候，让我们的Observable停止发射数据，防止运行昂贵的运算
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
@@ -53,48 +57,51 @@ public class OperatorsActivity extends AppCompatActivity {
                     emitter.onError(e);
                 }
             }
-        }).subscribe(new Consumer<Integer>() {
-            @Override
-            public void accept(Integer integer) throws Exception {
-                System.out.println("Next create " + integer);
-            }
-        }, new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable throwable) throws Exception {
-                System.err.println("Error: " + throwable.getMessage());
-            }
-        }, new Action() {
-            @Override
-            public void run() throws Exception {
-                System.out.println("Sequence complete");
-            }
-        });
+        })
+                .subscribe(new Consumer<Integer>() {
+                               @Override
+                               public void accept(Integer integer) throws Exception {
+                                   System.out.println("Next create " + integer);
+                               }
+                           },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                System.err.println("Error: " + throwable.getMessage());
+                            }
+                        },
+                        new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                System.out.println("Sequence complete");
+                            }
+                        });
     }
 
-    @SuppressLint("CheckResult")
     public void useJust(View view) {
         //just将单个数据转换为发射这个单个数据的Observable
         //just类似于from,但是from会将数组或Iterable的数据去除然后逐个发射,而just只是简单地原样发射，将数组或Iterable当作单个数据
         Observable.just(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
                 .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
-                        System.out.println("Next just " + integer);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        System.err.println("Error: " + throwable.getMessage());
-                    }
-                }, new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        System.out.println("Sequence complete");
-                    }
-                });
+                               @Override
+                               public void accept(Integer integer) throws Exception {
+                                   System.out.println("Next just " + integer);
+                               }
+                           },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                System.err.println("Error: " + throwable.getMessage());
+                            }
+                        },
+                        new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                System.out.println("Sequence complete");
+                            }
+                        });
     }
 
-    @SuppressLint("CheckResult")
     public void useFrom(View view) {
         Observable.fromArray("hello", "from")
                 .subscribe(new Consumer<String>() {
@@ -111,23 +118,32 @@ public class OperatorsActivity extends AppCompatActivity {
 
         Observable.fromIterable(items)
                 .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer integer) throws Exception {
-                        System.out.println("Next fromIterable " + integer);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        System.err.println("Error: " + throwable.getMessage());
-                    }
-                }, new Action() {
-                    @Override
-                    public void run() throws Exception {
-                        System.out.println("Sequence complete");
-                    }
-                });
+                               @Override
+                               public void accept(Integer integer) throws Exception {
+                                   System.out.println("Next fromIterable " + integer);
+                               }
+                           },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                System.err.println("Error: " + throwable.getMessage());
+                            }
+                        },
+                        new Action() {
+                            @Override
+                            public void run() throws Exception {
+                                System.out.println("Sequence complete");
+                            }
+                        });
 
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService = new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+                60L, TimeUnit.SECONDS,
+                new SynchronousQueue<Runnable>(), new ThreadFactory() {
+            @Override
+            public Thread newThread(Runnable r) {
+                return new Thread(r, "xll");
+            }
+        });
         Future<String> future = executorService.submit(new Callable<String>() {
             @Override
             public String call() throws Exception {
@@ -140,19 +156,19 @@ public class OperatorsActivity extends AppCompatActivity {
         //如果超过指定时长，Future没有返回一个值，那么这个Observable会发射一个错误通知并终止
         Observable.fromFuture(future, 4, TimeUnit.SECONDS)
                 .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        System.out.println("Next fromFuture " + s);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        System.err.println("onError " + throwable.toString());
-                    }
-                });
+                               @Override
+                               public void accept(String s) throws Exception {
+                                   System.out.println("Next fromFuture " + s);
+                               }
+                           },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                System.err.println("onError " + throwable.toString());
+                            }
+                        });
     }
 
-    @SuppressLint("CheckResult")
     public void useRepeat(View view) {
         //repeat会重复地发射数据。
         Observable.just("hello repeat")
@@ -192,16 +208,16 @@ public class OperatorsActivity extends AppCompatActivity {
                     public boolean getAsBoolean() throws Exception {
                         return System.currentTimeMillis() - statTimeMillis > 5000;
                     }
-                }).subscribe(new Consumer<Long>() {
-            @Override
-            public void accept(Long aLong) throws Exception {
-                System.out.println("repeatUntil " + aLong);
-            }
-        });
+                })
+                .subscribe(new Consumer<Long>() {
+                    @Override
+                    public void accept(Long aLong) throws Exception {
+                        System.out.println("repeatUntil " + aLong);
+                    }
+                });
         //打印了两遍0-4，满足条件 System.currentTimeMillis() - statTimeMillis > 5000 后不再执行
     }
 
-    @SuppressLint("CheckResult")
     public void useDefer(View view) {
         Observable<String> observable = Observable.defer(new Callable<ObservableSource<String>>() {
 
@@ -221,7 +237,7 @@ public class OperatorsActivity extends AppCompatActivity {
 
     @SuppressLint("CheckResult")
     public void useTimer(View view) {
-        Log.i("MainActivity", "usetimer: ");
+        Log.i("MainActivity", "use timer: ");
         //timer操作符创建一个在给定的时间段之后返回一个特殊值的Observable
         Observable.timer(2, TimeUnit.SECONDS)
                 .subscribe(new Consumer<Long>() {

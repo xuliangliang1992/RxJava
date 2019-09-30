@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="map"
+        android:text="map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_flatMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="flatMap"
+        android:text="flatMap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_map" />
+
+    <Button
+        android:id="@+id/btn_groupBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="groupBy"
+        android:text="groupBy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_flatMap" />
+
+    <Button
+        android:id="@+id/btn_buffer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="buffer"
+        android:text="buffer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_groupBy" />
+
+    <Button
+        android:id="@+id/btn_window"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="window"
+        android:text="window"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_buffer" />
+
+    <Button
+        android:id="@+id/btn_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="first"
+        android:text="first和last"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_window" />
+
+    <Button
+        android:id="@+id/btn_take"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="take"
+        android:text="take和takeLast"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_first" />
+
+    <Button
+        android:id="@+id/btn_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="skip"
+        android:text="skip和skipLast"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_take" />
+
+    <Button
+        android:id="@+id/btn_elementAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="elementAt"
+        android:text="elementAt和ignoreElements"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_skip" />
+
+    <Button
+        android:id="@+id/btn_distinct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="distinct"
+        android:text="distinct和filter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_elementAt" />
+
+    <Button
+        android:id="@+id/btn_debounce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="debounce"
+        android:text="debounce"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_distinct" />
+</androidx.constraintlayout.widget.ConstraintLayout>

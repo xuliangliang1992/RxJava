@@ -1,59 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/btn_create"
+        android:id="@+id/btn_missing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="create"
-        android:text="创建"
+        android:onClick="missing"
+        android:text="MISSING"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/btn_transform"
+        android:id="@+id/btn_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="transform"
-        android:text="变换、过滤"
+        android:onClick="error"
+        android:text="ERROR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_create" />
-
+        app:layout_constraintTop_toBottomOf="@+id/btn_missing" />
     <Button
-        android:id="@+id/btn_merge"
+        android:id="@+id/btn_buffer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="merge"
-        android:text="合并、连接"
+        android:onClick="buffer"
+        android:text="BUFFER"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_transform" />
-
+        app:layout_constraintTop_toBottomOf="@+id/btn_error" />
     <Button
-        android:id="@+id/btn_backPressure"
+        android:id="@+id/btn_drop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="backPressure"
-        android:text="背压"
+        android:onClick="drop"
+        android:text="DROP"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_merge" />
-
+        app:layout_constraintTop_toBottomOf="@+id/btn_buffer" />
     <Button
-        android:id="@+id/btn_thread"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="thread"
-        android:text="RxJava线程"
+        android:onClick="latest"
+        android:text="LATEST"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_backPressure" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_drop" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
